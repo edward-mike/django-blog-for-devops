@@ -5,7 +5,7 @@
 {% block content %}
 user - {{ request.user }}
     <section class="form--section">
-        <form action="." method=POST>
+        <form action="." method=POST style="padding: 0.6em 1em 1em 1em;box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2) !important;">
             {% csrf_token %}
 
             {% if messages %}
@@ -19,11 +19,11 @@ user - {{ request.user }}
                 {{ form|crispy }}
             </fieldset>
             <button class="btn btn-outline-info" type="submit">Login</button>
+            <section class="border-top pt-3 mt-3">
+                <small class="text-muted">
+                    Need an Account? <a class="ml-2" href="{% url 'accounts:accounts-register' %}">Sign Up</a>
+                </small>
+            </section>
         </form>
-        <section class="border-top pt-3 mt-3">
-            <small class="text-muted">
-                Need an Account? <a class="ml-2" href="{% url 'accounts:accounts-register' %}">Sign Up</a>
-            </small>
-        </section>
     </section>
 {% endblock content %}
