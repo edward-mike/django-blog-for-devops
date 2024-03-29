@@ -1,6 +1,7 @@
 {% extends "_layout.html" %}
 
 {% block content %}
+login user : {{ request.user }}
     {% for post in posts %}
         <article class="media content-section">
             <img class="rounded-circle article-img" src="">

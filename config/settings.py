@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 from decouple import config as env, Csv
 from django.core.management.utils import get_random_secret_key  
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,6 +47,11 @@ INSTALLED_APPS = [
     # apps.
     'smuull.post.apps.PostConfig',
     'smuull.accounts.apps.AccountsConfig',
+    
+    # packages
+     'crispy_forms',
+     'crispy_bootstrap5',
+       
 ]
 
 MIDDLEWARE = [
@@ -59,6 +65,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
+
+LOGIN_REDIRECT_URL = 'post:post-index'
+LOGOUT_REDIRECT_URL = 'accounts-logout'
 
 TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 
@@ -172,6 +181,23 @@ MEDIA_URL = "/media/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# MESSAGE FRAMEWORK
+# https://docs.djangoproject.com/en/3.2/ref/contrib/messages/
+
+MESSAGE_TAGS = {
+        messages.DEBUG: 'secondary', # alert-secondary
+        messages.INFO: 'info', # alert-info
+        messages.SUCCESS: 'success', # alert-success
+        messages.WARNING: 'warning', # alert-warning
+        messages.ERROR: 'danger', # alert-danger
+ }
+
+
+# Boostrap settings
+# https://github.com/django-crispy-forms/crispy-bootstrap5
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # Project Related Settings
 # ------------------------------------------------------------------------------

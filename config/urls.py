@@ -18,10 +18,14 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path,include
 
+from . import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('smuull.post.urls',namespace='post')),
     path('accounts/',include('smuull.accounts.urls',namespace='accounts')),
+    path('accounts/login/',views.CustomLoginView.as_view(template_name="accounts/login.html"),
+         name='accounts-login'),
 ]
 
 if settings.DEBUG:
