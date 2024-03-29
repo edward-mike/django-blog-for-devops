@@ -21,6 +21,7 @@ from django.urls import path,include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('smuull.post.urls',namespace='post')),
+    path('accounts/',include('smuull.accounts.urls',namespace='accounts')),
 ]
 
 if settings.DEBUG:

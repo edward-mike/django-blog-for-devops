@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     
     # apps.
     'smuull.post.apps.PostConfig',
+    'smuull.accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.contrib.humanize.templatetags.humanize import naturaltime
 from django.utils import timezone
 
 User = get_user_model()
@@ -79,3 +80,11 @@ class Post(models.Model):
     
     def __str__(self):
         return self.title
+    
+
+    @property
+    def timesince_published(self):
+        import humanize 
+        
+        timelapse = self.published_date.replace(tzinfo=None)
+        return humanize.naturaltime(timelapse)
