@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 from decouple import config as env, Csv
 from django.core.management.utils import get_random_secret_key  
@@ -27,10 +27,10 @@ SECRET_KEY = env(
 )
 
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = env('DEBUG', default=True, cast=bool)
 
-# ALLOWED_HOSTS configurations
+# https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = env('ALLOWED_HOSTS', cast=Csv())
 
 
@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # apps.
+    'smuull.post.apps.PostConfig',
 ]
 
 MIDDLEWARE = [
@@ -56,10 +59,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
+TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -106,21 +111,43 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'Europe/London'
-
+# Local time zone. Choices are
+# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
+# though not all of them may be available with every OS.
+# In Windows, this must be set to your system time zone.
+TIME_ZONE = "Europe/London"
+# https://docs.djangoproject.com/en/dev/ref/settings/#language-code
+LANGUAGE_CODE = "en-us"
+# https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n
 USE_I18N = True
-
+# https://docs.djangoproject.com/en/dev/ref/settings/#use-l10n
+USE_L10N = True
+# https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
+# STATIC
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#static-root
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+# https://docs.djangoproject.com/en/dev/ref/settings/#static-url
+STATIC_URL = "/static/"
+# https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
+STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
+# https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
 
-STATIC_URL = 'static/'
+# MEDIA
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#media-root
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+# https://docs.djangoproject.com/en/dev/ref/settings/#media-url
+MEDIA_URL = "/media/"
+# Default primary key field type
+# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
