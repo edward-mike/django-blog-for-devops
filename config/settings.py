@@ -72,6 +72,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # custom context processors
+                'smuull.post.context_processors.site_informations',
             ],
         },
     },
@@ -83,11 +85,27 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# https://www.postgresqltutorial.com/connect-to-postgresql-database/
+
 DATABASES = {
+
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'LguUptCBozEENtByKTysCGFYHpmvtRln',
+        'HOST': 'roundhouse.proxy.rlwy.net',
+        'PORT': 21420,
     }
+
 }
 
 
@@ -153,3 +171,8 @@ MEDIA_URL = "/media/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Project Related Settings
+# ------------------------------------------------------------------------------
+
+PROJECT_NAME = env('PROJECT_NAME',default='smuull')
