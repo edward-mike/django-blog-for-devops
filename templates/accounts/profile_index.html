@@ -1,0 +1,33 @@
+{% extends "_layout.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="card mb-5" style="width: 20rem; padding: 0.6em; box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2) !important;">
+    <div class="card-body">
+    <img class="rounded-circle account-img" src="{{ request.user.profile.image.url }}" style="width: 100px;
+    height: 100px;">
+      <h5 class="card-title">{{ request.user.username }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{ request.user.email }}</h6>
+      <p class="card-text text-muted">{{ request.user.profile.bio }}</p>
+      <small class="card-link">Posts {{ request.user.posts.count }}</small>
+    {% comment %} FOrms Here {% endcomment %}
+    <form class="mt-4" action="." method=POST enctype="multipart/form-data">
+      {% csrf_token %}
+
+      {% if messages %}
+          {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+      {% endif %}
+
+      <fieldset class="form-group">
+          <legend class="border-bottom mb-4">Edit Account</legend>
+          {{ user_form|crispy  }}
+          {{ profile_form|crispy  }}
+      </fieldset>
+      <button class="btn btn-outline-secondary" type="submit">Update</button>
+  </form>
+  </div>
+</div>
+{% endblock content %}

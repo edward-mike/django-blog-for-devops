@@ -1,0 +1,11 @@
+{% extends "_layout.html" %}
+
+    {% block content %}
+        <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top mb-3" alt="...">
+            <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text mt-5">{{ post.content }}</p>
+            </div>
+        </div>
+    {% endblock content %}

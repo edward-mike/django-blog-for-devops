@@ -5,12 +5,11 @@ from django.shortcuts import redirect
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 
-from .forms import RegisterForm
+from .forms import RegisterForm, UpdateUserForm, UpdateProfileForm
 
 
-# Create your views here.
 def register(request:HttpResponse, template_name:str = "accounts/register.html"):
-    # MEssages require fixing : error and success
+    # ToDo : This view needs attention.
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -36,6 +35,34 @@ def logout(request:HttpResponse, template_name:str = "accounts/logout.html"):
 	auth.logout(request)
 	return redirect("accounts:accounts-logout-redirect")
 
+
 @login_required
 def logout_redirect(request:HttpResponse, template_name:str = "accounts/logout.html"):
 	return TemplateResponse(request, template_name,{})
+
+
+@login_required
+def profile_index(request:HttpResponse, template_name:str = "accounts/profile_index.html"):
+
+    if request.method == "POST":
+        user_form = UpdateUserForm(instance = request.user, data = request.POST)
+        profile_form = UpdateProfileForm(instance = request.user.profile, data = request.POST, files = request.FILES)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request,"Profile updated!")
+            return redirect("accounts:accounts-profile")
+        else:
+            messages.error(request,"Error updating your profile")
+            return redirect("accounts:accounts-profile")
+        
+    user_form = UpdateUserForm(instance = request.user)
+    profile_form = UpdateProfileForm(instance = request.user.profile)
+    
+    template_data:dict = {
+        "user_form":user_form,
+        "profile_form":profile_form
+    }
+    
+    return TemplateResponse(request, template_name,template_data)

@@ -3,6 +3,8 @@ from django.db import IntegrityError
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.contrib.auth.models import User
+from .models import Profile
+
 
 USERNAME_RE = r'^[\.\w]+$'
 
@@ -73,3 +75,29 @@ class RegisterForm(forms.Form):
                 except IntegrityError:
                     raise ValidationError("User is already registered")
             return user
+        
+
+class UpdateUserForm(forms.ModelForm):
+    email = forms.EmailField()
+    
+    class Meta:
+        model = User
+        fields = ["username", "email"]
+    
+    def __init__(self,*args,**kwargs):
+        super(self.__class__, self).__init__(*args,**kwargs)
+
+        
+         
+
+class UpdateProfileForm(forms.ModelForm):
+    
+    class Meta:
+        model = Profile
+        fields = ["bio","image",]
+
+    def __init__(self,*args,**kwargs):
+        super(self.__class__, self).__init__(*args,**kwargs)
+        
+
+        

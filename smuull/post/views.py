@@ -1,5 +1,6 @@
 from django.template.response import TemplateResponse
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from .models import Post
 
 
@@ -12,6 +13,13 @@ def index(request:HttpResponse, template_name:str = "post/index.html"):
     return TemplateResponse(request, template_name, template_data)
 
 
-def about(request:HttpResponse, template_name:str = "post/about.html"):
-    template_data: dict = {"title":"about title"}
+def post_detail(request:HttpResponse, template_name:str = "post/detail.html", *args,**kwargs):
+    
+    id_ = kwargs.pop("post_id")
+    post = get_object_or_404(Post, pk = int(id_))
+    
+    # post = Post.objects.get(id = post_id)
+    template_data = {
+        "post": post
+    }
     return TemplateResponse(request, template_name, template_data)

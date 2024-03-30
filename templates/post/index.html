@@ -4,13 +4,14 @@
 login user : {{ request.user }}
     {% for post in posts %}
         <article class="media content-section mb-3" style="padding: 0.6em 1em 1em 1em;box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2) !important;">
-            <img class="rounded-circle article-img" src="">
+            <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" style="width: 60px;
+            height: 60px;">
             <div class="media-body">
-            <div class="article-metadata">
+            <div class="article-metadata mb-3 mt-1">
                 <a class="mr-2" href="">{{ post.author }}</a>
                 <small class="text-muted">{{ post.timesince_published }}</small>
             </div>
-                <h3><a class="article-title" href="">{{ post.title }}</a></h3>
+                <h3><a class="article-title" href="{% url 'post:post-detail' post.id %}">{{ post.title }}</a></h3>
                 <p class="article-content">{{ post.content }}</p>
             </div>
                 <small class="text-muted">viewers counter 5k</small>
