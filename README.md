@@ -50,6 +50,4 @@ python manage.py runserver
 Now you should be able to access the project at http://localhost:8000.
 ## Author
 
-- Author : [Edward Mike](https://www.github.com/octokatherine)
-- University : [University of Stirling](https://www.stir.ac.uk/) 
-
+- Author : [Edward Mike](https://www.linkedin.com/in/edward-mike/)
