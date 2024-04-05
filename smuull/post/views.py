@@ -2,6 +2,7 @@ from django.template.response import TemplateResponse
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from .models import Post
+from .signals import post_is_viewed
 
 
 # Create your views here.
@@ -15,10 +16,10 @@ def index(request:HttpResponse, template_name:str = "post/index.html"):
 
 def post_detail(request:HttpResponse, template_name:str = "post/detail.html", *args,**kwargs):
     
-    id_ = kwargs.pop("post_id")
-    post = get_object_or_404(Post, pk = int(id_))
+    post = get_object_or_404(Post, pk = int(kwargs.pop("post_id")))
     
-    # post = Post.objects.get(id = post_id)
+    post_is_viewed.send(sender = None, post = post, request = request)
+    
     template_data = {
         "post": post
     }

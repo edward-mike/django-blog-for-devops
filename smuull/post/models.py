@@ -1,3 +1,4 @@
+import os
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.humanize.templatetags.humanize import naturaltime
@@ -41,6 +42,16 @@ class Board(models.Model):
 
 
 
+def post_cover_upload_dir(post_obj,filename):
+	# upload function.
+	filename,ext = os.path.splitext(filename)
+	return os.path.join(
+		'post_covers',
+		'cover_image_{id}_{filename}{ext}'.format(
+			id=post_obj.id,filename=filename.lower(),ext=ext
+			))
+
+
 # Post Model
 class Post(models.Model):
     
@@ -55,6 +66,8 @@ class Post(models.Model):
                              verbose_name="post title",
                              blank=False,
                              null=False)
+    
+    image  = models.ImageField(upload_to=post_cover_upload_dir,verbose_name="post image",max_length=255,blank=True,null=True)
     
     content = models.TextField(max_length=450,verbose_name="content",blank=False,null=False)
     

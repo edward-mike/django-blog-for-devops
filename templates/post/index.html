@@ -14,8 +14,7 @@ login user : {{ request.user }}
                 <h3><a class="article-title" href="{% url 'post:post-detail' post.id %}">{{ post.title }}</a></h3>
                 <p class="article-content">{{ post.content }}</p>
             </div>
-                <small class="text-muted">viewers counter 5k</small>
-                <small class="text-muted">Likes 10k</small>
+                <small class="text-muted">{{ post.viewers }} view{{ post.viewers|pluralize }} </small>
         </article>
     {% endfor %}
 {% endblock content %}

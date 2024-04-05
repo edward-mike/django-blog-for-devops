@@ -32,10 +32,9 @@
                   <h3>Smuull top posts</h3>
                       <p><class="text-muted"><small class="text-muted">Trending Posts in the last 3 days</small>
                           <ul class="list-group">
-                              <li class="list-group-item list-group-item-light">Posts 1</li>
-                              <li class="list-group-item list-group-item-light">Posts 2</li>
-                              <li class="list-group-item list-group-item-light">Post 3</li>
-                              <li class="list-group-item list-group-item-light">Post 4</li>
+                            {% for post_t in trending_posts %}
+                              <a href="{% url 'post:post-detail' post_t.id %}" class="list-group-item list-group-item-light">{{ post_t.title }}</a>
+                            {% endfor %}
                           </ul>
                       </p>
               </div>
