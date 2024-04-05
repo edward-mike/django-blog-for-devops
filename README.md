@@ -36,11 +36,15 @@ PROJECT_NAME=smuull
 ```
 
 3. Run migrations to create necessary database tables:
-```python manage.py migrate
+
+```
+python manage.py migrate
 ```
 
 4. Start the development server:
-```python manage.py runserver
+
+```
+python manage.py runserver
 ```
 
 Now you should be able to access the project at http://localhost:8000.
